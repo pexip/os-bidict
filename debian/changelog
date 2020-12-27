@@ -1,0 +1,55 @@
+bidict (0.21.2-2) unstable; urgency=medium
+
+  * Team Upload.
+  [ Ondřej Nový ]
+  * d/control: Update Vcs-* fields with new Debian Python Team Salsa
+    layout.
+
+  [ Håvard Flaget Aasen ]
+  * Remove regenerated file by scm. Closes: #978282
+  * New upstream version 0.21.2
+  * d/patches:
+    - Rebase patches
+    - Add 0004-drop-intersphinx.patch
+  * d/control: Update Standards-Version to 4.5.1
+  * d/copyright:
+    - Add Upstream-Contact
+    - Update copyright holders year and email
+  * d/gbp.conf: New file, change default branch to debian/master
+
+ -- Håvard Flaget Aasen <haavard_aasen@yahoo.no>  Sun, 27 Dec 2020 16:48:26 +0100
+
+bidict (0.21.0-1) unstable; urgency=medium
+
+  * New upstream version 0.21.0 Closes: #963380
+  * Rebase patches
+  * d/control:
+    - Add python3-sphinx-autodoc-typehints as Build-Depends
+    - Add Rules-Requires-Root: no
+    - Bump debhelper to 13
+    - Update Standards-Version to 4.5.0
+    - Change to Debian Python Team as maintainer
+  * d/*.links: add entry to link duplicated file
+
+ -- Håvard Flaget Aasen <haavard_aasen@yahoo.no>  Fri, 04 Sep 2020 11:22:11 +0200
+
+bidict (0.18.2-1) unstable; urgency=medium
+
+  * New upstream release
+  * d/control: remove line about compatible python versions from description
+  * d/patches: reapply patch 0002 catching up upstream changes
+
+ -- William Grzybowski <william@grzy.org>  Tue, 17 Sep 2019 13:41:16 -0300
+
+bidict (0.18.0-2) unstable; urgency=medium
+
+  * Team upload.
+  * Uploading to unstable.
+
+ -- Ondřej Nový <onovy@debian.org>  Wed, 14 Aug 2019 17:59:48 +0200
+
+bidict (0.18.0-1) experimental; urgency=medium
+
+  * Initial release (Closes: #932216)
+
+ -- William Grzybowski <william@grzy.org>  Wed, 14 Aug 2019 13:06:09 +0200

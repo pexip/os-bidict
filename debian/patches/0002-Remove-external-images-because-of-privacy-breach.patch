@@ -1,0 +1,174 @@
+From: William Grzybowski <william@grzy.org>
+Date: Thu, 18 Jul 2019 21:57:36 -0300
+Subject: Remove external images because of privacy breach
+
+Forwarded: not-needed
+---
+ docs/changelog.rst          |  4 ---
+ docs/contributors-guide.rst | 20 -------------
+ docs/home.rst               | 71 +--------------------------------------------
+ 3 files changed, 1 insertion(+), 94 deletions(-)
+
+diff --git a/docs/changelog.rst b/docs/changelog.rst
+index 2f9ce81..07cd580 100644
+--- a/docs/changelog.rst
++++ b/docs/changelog.rst
+@@ -14,10 +14,6 @@ Release Notifications
+ .. duplicated in README.rst
+    (would use `.. include::` but GitHub doesn't understand it)
+ 
+-.. image:: https://img.shields.io/badge/libraries.io-subscribe-5BC0DF.svg
+-   :target: https://libraries.io/pypi/bidict
+-   :alt: Follow on libraries.io
+-
+ Tip: Subscribe to releases
+ `on GitHub <https://github.blog/changelog/2018-11-27-watch-releases/>`__ or
+ `libraries.io <https://libraries.io/pypi/bidict>`__
+diff --git a/docs/contributors-guide.rst b/docs/contributors-guide.rst
+index f9eeb80..5c3ef3c 100644
+--- a/docs/contributors-guide.rst
++++ b/docs/contributors-guide.rst
+@@ -112,19 +112,6 @@ Submitting Changes
+ Other Ways to Contribute
+ ------------------------
+ 
+-.. image:: https://img.shields.io/badge/Gumroad-Chip%20in-orange.svg
+-  :target: https://gumroad.com/l/bidict
+-  :alt: Chip in via Gumroad
+-
+-.. image:: https://img.shields.io/badge/PayPal-Chip%20in-blue.svg
+-  :target: https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=jabronson%40gmail%2ecom&lc=US&item_name=Support%20bidict&button_subtype=services&currency_code=USD&bn=PP%2dBuyNowBF%3aPaypal%2dBuy%2520a%2520Drink%2dblue%2esvg%3aNonHosted
+-  :alt: Chip in via PayPal
+-
+-.. 2020-1-1: bountysource.com domain expired, commented out here + removed from .github/FUNDING.yml
+-   image:: https://img.shields.io/badge/Bountysource-Chip%20in-brightgreen.svg
+-  :target: https://www.bountysource.com/teams/bidict
+-  :alt: Chip in via Bountysource
+-
+ .. duplicated in README.rst
+    (would use `.. include::` but GitHub doesn't understand it)
+ 
+@@ -152,13 +139,6 @@ there are other ways to contribute.
+   please spread the word.
+ 
+ 
+-**Please support bidict:**
+-
+-.. image:: https://raw.githubusercontent.com/jab/bidict/master/assets/support-on-gumroad.png
+-  :target: https://gumroad.com/l/bidict
+-  :alt: Support bidict
+-
+-
+ Code of Conduct
+ ---------------
+ 
+diff --git a/docs/home.rst b/docs/home.rst
+index 9ef2599..0959f13 100644
+--- a/docs/home.rst
++++ b/docs/home.rst
+@@ -11,61 +11,7 @@
+ 
+ The bidirectional mapping library for Python.
+ 
+-.. image:: https://raw.githubusercontent.com/jab/bidict/master/assets/logo-sm.png
+-   :target: https://bidict.readthedocs.io/
+-   :alt: bidict logo
+-
+-
+-Status
+-------
+-
+-.. image:: https://img.shields.io/pypi/v/bidict.svg
+-   :target: https://pypi.org/project/bidict
+-   :alt: Latest release
+-
+-.. image:: https://img.shields.io/readthedocs/bidict/master.svg
+-   :target: https://bidict.readthedocs.io/en/master/
+-   :alt: Documentation
+-
+-.. image:: https://api.travis-ci.org/jab/bidict.svg?branch=master
+-   :target: https://travis-ci.org/jab/bidict
+-   :alt: Travis-CI build status
+-
+-.. image:: https://codecov.io/gh/jab/bidict/branch/master/graph/badge.svg
+-   :target: https://codecov.io/gh/jab/bidict
+-   :alt: Test coverage
+-
+-.. Hide to reduce clutter
+-   .. image:: https://img.shields.io/lgtm/alerts/github/jab/bidict.svg
+-      :target: https://lgtm.com/projects/g/jab/bidict/
+-      :alt: LGTM alerts
+-   .. image:: https://bestpractices.coreinfrastructure.org/projects/2354/badge
+-      :target: https://bestpractices.coreinfrastructure.org/en/projects/2354
+-      :alt: CII best practices badge
+-   .. image:: https://img.shields.io/badge/tidelift-pro%20support-orange.svg
+-      :target: https://tidelift.com/subscription/pkg/pypi-bidict?utm_source=pypi-bidict&utm_medium=referral&utm_campaign=docs
+-      :alt: Paid support available via Tidelift
+-   .. image:: https://ci.appveyor.com/api/projects/status/gk133415udncwto3/branch/master?svg=true
+-      :target: https://ci.appveyor.com/project/jab/bidict
+-      :alt: AppVeyor (Windows) build status
+-   .. image:: https://img.shields.io/pypi/pyversions/bidict.svg
+-      :target: https://pypi.org/project/bidict
+-      :alt: Supported Python versions
+-   .. image:: https://img.shields.io/pypi/implementation/bidict.svg
+-      :target: https://pypi.org/project/bidict
+-      :alt: Supported Python implementations
+-
+-.. image:: https://img.shields.io/pypi/l/bidict.svg
+-   :target: https://raw.githubusercontent.com/jab/bidict/master/LICENSE
+-   :alt: License
+-
+-.. image:: https://static.pepy.tech/badge/bidict
+-   :target: https://pepy.tech/project/bidict
+-   :alt: PyPI Downloads
+-
+-
+-``bidict``:
+-^^^^^^^^^^^
++
+ 
+ - has been used for many years by several teams at
+   **Google, Venmo, CERN, Bank of America Merrill Lynch, Bloomberg, Two Sigma,** and many others
+@@ -122,9 +68,6 @@ and proceed from there.
+ Community Support
+ -----------------
+ 
+-.. image:: https://img.shields.io/badge/chat-on%20gitter-5AB999.svg?logo=gitter-white
+-   :target: https://gitter.im/jab/bidict
+-   :alt: Chat
+ 
+ If you are thinking of using ``bidict`` in your work,
+ or if you have any questions, comments, or suggestions,
+@@ -143,10 +86,6 @@ in case your questions or concerns have been adressed there already.
+ Enterprise-Grade Support via Tidelift
+ -------------------------------------
+ 
+-.. image:: https://img.shields.io/badge/tidelift-pro%20support-orange.svg
+-   :target: https://tidelift.com/subscription/pkg/pypi-bidict?utm_source=pypi-bidict&utm_medium=referral&utm_campaign=readme
+-   :alt: Paid support available via Tidelift
+-
+ If your use case requires a greater level of support,
+ enterprise-grade support for ``bidict`` can be obtained via the
+ `Tidelift subscription <https://tidelift.com/subscription/pkg/pypi-bidict?utm_source=pypi-bidict&utm_medium=referral&utm_campaign=readme>`__.
+@@ -180,10 +119,6 @@ Release Notifications
+ .. duplicated in CHANGELOG.rst:
+    (would use `.. include::` but GitHub doesn't understand it)
+ 
+-.. image:: https://img.shields.io/badge/libraries.io-subscribe-5BC0DF.svg
+-   :target: https://libraries.io/pypi/bidict
+-   :alt: Follow on libraries.io
+-
+ Subscribe to releases
+ `on GitHub <https://github.blog/changelog/2018-11-27-watch-releases/>`__ or
+ `libraries.io <https://libraries.io/pypi/bidict>`__
+@@ -246,10 +181,6 @@ please consider chipping in toward the costs
+ of its maintenance and development
+ and/or ask your organization to do the same.
+ 
+-.. image:: https://raw.githubusercontent.com/jab/bidict/master/assets/support-on-gumroad.png
+-   :target: https://gumroad.com/l/bidict
+-   :alt: Support bidict
+-
+ 
+ Finding Documentation
+ ---------------------

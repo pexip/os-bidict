@@ -1,0 +1,29 @@
+From: =?utf-8?q?H=C3=A5vard_Flaget_Aasen?= <haavard_aasen@yahoo.no>
+Date: Sun, 27 Dec 2020 18:39:08 +0100
+Subject: drop intersphinx
+
+Forwarded: not-needed
+---
+ docs/conf.py | 2 --
+ 1 file changed, 2 deletions(-)
+
+diff --git a/docs/conf.py b/docs/conf.py
+index 555b21a..f6b378d 100644
+--- a/docs/conf.py
++++ b/docs/conf.py
+@@ -45,7 +45,6 @@ extensions = [
+     'sphinx.ext.autosectionlabel',
+     'sphinx.ext.coverage',
+     'sphinx.ext.doctest',
+-    'sphinx.ext.intersphinx',
+     'sphinx.ext.viewcode',
+     'sphinx.ext.todo',
+     'sphinx_autodoc_typehints',
+@@ -54,7 +53,6 @@ extensions = [
+ # https://github.com/agronholm/sphinx-autodoc-typehints#options
+ set_type_checking_flag = True
+ 
+-intersphinx_mapping = {'python': ('https://docs.python.org/3', None)}
+ #todo_include_todos = True
+ 
+ # Add any paths that contain templates here, relative to this directory.
