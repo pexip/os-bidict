@@ -1,8 +1,9 @@
 Source: bidict
 Section: python
 Priority: optional
-Maintainer: Debian Python Team <team+python@tracker.debian.org>
-Uploaders: William Grzybowski <william@grzy.org>
+Maintainer: Pexip AS <packaging@pexip.com>
+XSBC-Pexip-Original-Maintainer: Debian Python Team <team+python@tracker.debian.org>
+XSBC-Pexip-Original-Uploaders: William Grzybowski <william@grzy.org>
 Build-Depends: debhelper-compat (= 13),
                dh-python,
                python3-all,
@@ -22,6 +23,7 @@ Homepage: https://bidict.readthedocs.io
 Vcs-Browser: https://salsa.debian.org/python-team/packages/bidict
 Vcs-Git: https://salsa.debian.org/python-team/packages/bidict.git
 Testsuite: autopkgtest-pkg-python
+XS-Pexip-Upstream: http://ftp.debian.org/debian/ bullseye
 
 Package: python3-bidict
 Architecture: all
