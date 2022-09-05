@@ -1,3 +1,9 @@
+bidict (0.21.2-2pexip2) pexip-bullseye; urgency=medium
+
+  * Bullseye rebuild for ARM64 inclusion
+
+ -- Mark Hymers <mark.hymers@pexip.com>  Mon, 05 Sep 2022 10:31:13 +0100
+
 bidict (0.21.2-2pexip1) pexip-bullseye; urgency=medium
 
   * Prepare Pexip packaging
