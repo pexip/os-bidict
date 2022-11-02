@@ -27,7 +27,7 @@ XS-Pexip-Upstream: http://ftp.debian.org/debian/ bullseye
 
 Package: python3-bidict
 Architecture: all
-Depends: ${misc:Depends}, ${python3:Depends}, ${sphinxdoc:Depends}
+Depends: ${misc:Depends}, ${python3:Depends}
 Description: Bidirectional map data structures and related functionality
  Features:
   - has carefully designed APIs for safety, simplicity, flexibility,

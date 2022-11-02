@@ -1,3 +1,9 @@
+bidict (0.21.2-2pexip3) pexip; urgency=medium
+
+  * Don't build docs
+
+ -- Huw Jones <huw@pexip.com>  Wed, 02 Nov 2022 10:36:46 +0000
+
 bidict (0.21.2-2pexip2) pexip-bullseye; urgency=medium
 
   * Bullseye rebuild for ARM64 inclusion
