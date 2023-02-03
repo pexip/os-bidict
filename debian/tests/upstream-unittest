@@ -1,0 +1,11 @@
+#!/bin/sh
+
+set -e
+
+cp -rv tests "$AUTOPKGTEST_TMP/"
+cd "$AUTOPKGTEST_TMP"
+
+for py in $(py3versions --supported); do
+    echo "[*] testing $py:"
+    $py -m pytest --benchmark-disable
+done

@@ -1,2 +1,4 @@
 version=4
-https://pypi.debian.net/bidict/bidict-(.+)\.(?:zip|tgz|tbz|txz|(?:tar\.(?:gz|bz2|xz)))
+opts="filenamemangle=s%(?:.*?)?v?(\d[\d.]*@ARCHIVE_EXT@)%@PACKAGE@-$1%" \
+ https://github.com/jab/bidict/tags \
+ (?:.*?/)?v?@ANY_VERSION@@ARCHIVE_EXT@

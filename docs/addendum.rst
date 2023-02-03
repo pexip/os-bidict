@@ -4,20 +4,18 @@ Addendum
 Performance
 -----------
 
-:mod:`bidict` strives to be as performant as possible
-while being faithful to its purpose.
-The need for speed
-is balanced with the responsibility
-to protect users from shooting themselves in the foot.
+:mod:`bidict` is written to be as performant as possible
+without sacrificing other important goals,
+such as safety, portability, and maintainability.
 
-In general,
-accomplishing some task using :mod:`bidict`
-should have about the same performance
-as keeping two inverse dicts in sync manually.
-The test suite includes benchmarks for common workloads
-to catch any performance regressions.
+In general, using a :mod:`bidict` to maintain a bidirectional mapping
+should exhibit about the same performance as
+keeping two mutually-inverse one-directional mappings
+in sync manually.
+The test suite includes benchmarks so that bidict's performance
+can be continuously measured and improved.
 
-If you spot a case where :mod:`bidict`'s performance could be improved,
+If you spot an opportunity to improve :mod:`bidict`'s performance further,
 please don't hesitate to
 :doc:`file an issue or submit a pull request <contributors-guide>`.
 
@@ -43,7 +41,7 @@ create a reference cycle.
 If this were true,
 in CPython this would mean that the memory for a :class:`~bidict.bidict`
 could not be immediately reclaimed when you retained no more references to it,
-but rather would have to wait for the next gargage collection to kick in
+but rather would have to wait for the next garbage collection to kick in
 before it could be reclaimed.
 
 However, :class:`~bidict.bidict`\s use a :class:`weakref.ref`
@@ -214,12 +212,63 @@ But in CPython, beware of this unexpected behavior,
 which applies to :class:`~bidict.bidict`\s too.
 :mod:`bidict` contains no special-case logic
 for dealing with *nan* as a key,
-so the behavior will match :class:`dict`'s
-wherever :mod:`bidict` is running.
+so bidict's behavior will match :class:`dict`'s
+on whatever runtime you're using.
 
 See e.g. `these docs
 <https://doc.pypy.org/en/latest/cpython_differences.html>`__
 for more info (search the page for "nan").
+
+
+Simultaneous Assignment
+^^^^^^^^^^^^^^^^^^^^^^^
+
+:class:`~bidict.bidict`\s may behave differently
+from dicts with respect to so-called "simultaneous assignment".
+
+Consider the following:
+
+.. doctest::
+
+   >>> m = {'a': 'a', 'b': 'b'}
+   >>> m['a'], m['b'] = m['b'], m['a']  # swap two values
+   >>> m
+   {'a': 'b', 'b': 'a'}
+
+With a :class:`~bidict.bidict`,
+simultaneous assignment cannot be used
+to swap two values in this way:
+
+.. doctest::
+
+   >>> m = bidict({'a': 'a', 'b': 'b'})
+   >>> m['a'], m['b'] = m['b'], m['a']
+   Traceback (most recent call last):
+       ...
+   KeyAndValueDuplicationError: ('a', 'b')
+
+This is because "simultaneous" assignments like the above
+are `by definition <https://docs.python.org/3/reference/simple_stmts.html#assignment-statements>`__
+just syntax sugar for:
+
+.. code-block:: python
+
+   >>> # desugaring: m['a'], m['b'] = m['b'], m['a']
+   >>> tmp = (m['b'], m['a'])
+   >>> m['a'] = tmp[0]
+   >>> m['b'] = tmp[1]
+
+and so the intermediate ``m['a'] = tmp[0]`` assignment
+raises :class:`~bidict.KeyAndValueDuplicationError`
+before the second half of the swap assignment has a chance to run.
+
+For a working alternative, you can write:
+
+.. doctest::
+
+   >>> m.forceupdate({m['a']: m['b'], m['b']: m['a']})
+   >>> m
+   bidict({'a': 'b', 'b': 'a'})
 
 ----
 

@@ -3,6 +3,7 @@
 
 export PYBUILD_NAME=bidict
 export PYBUILD_AFTER_TEST=rm -rf .pytest_cache
+export PYBUILD_TEST_ARGS=--benchmark-disable
 
 %:
 	dh $@ --with python3,sphinxdoc --buildsystem=pybuild
@@ -10,6 +11,6 @@ export PYBUILD_AFTER_TEST=rm -rf .pytest_cache
 override_dh_sphinxdoc:
 ifeq (,$(findstring nodocs, $(DEB_BUILD_OPTIONS)))
 	python3 -m sphinx -b html docs \
-		$(CURDIR)/debian/python3-bidict/usr/share/doc/python3-bidict/html
+		$(CURDIR)/debian/python-bidict-doc/usr/share/doc/python-bidict-doc/html
 	dh_sphinxdoc
 endif

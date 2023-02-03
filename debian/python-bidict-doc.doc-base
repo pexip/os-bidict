@@ -1,0 +1,9 @@
+Document: python-bidict-doc
+Title: Python bidict Manual
+Author: Joshua Bronson
+Abstract: This manual describes how to use bidict module.
+Section: Programming/Python
+
+Format: HTML
+Index: /usr/share/doc/python-bidict-doc/html/index.html
+Files: /usr/share/doc/python-bidict-doc/html/*.html

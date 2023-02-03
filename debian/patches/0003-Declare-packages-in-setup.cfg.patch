@@ -1,0 +1,21 @@
+From: Stefano Rivera <stefanor@debian.org>
+Date: Fri, 3 Feb 2023 19:28:54 -0400
+Subject: Declare packages in setup.cfg
+
+setuptools isn't finding it in pyproject.toml
+---
+ setup.cfg | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/setup.cfg b/setup.cfg
+index 0fc06b7..8642d9d 100644
+--- a/setup.cfg
++++ b/setup.cfg
+@@ -8,3 +8,7 @@
+ # https://packaging.python.org/guides/single-sourcing-package-version/#:~:text=%5Bmetadata%5D%0Aversion%20%3D%20attr%3A%20package.__version__
+ [metadata]
+ version = attr: bidict.metadata.__version__
++
++[options]
++packages =
++  bidict

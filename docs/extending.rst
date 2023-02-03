@@ -25,7 +25,6 @@ you can use the following recipe:
    >>> from bidict import bidict, ON_DUP_DROP_OLD
 
    >>> class YoloBidict(bidict):
-   ...     __slots__ = ()
    ...     on_dup = ON_DUP_DROP_OLD
 
    >>> b = YoloBidict({'one': 1})
@@ -76,20 +75,71 @@ A safer example of this type of customization would be something like:
 
    >>> from bidict import ON_DUP_RAISE
 
-   >>> class YodoBidict(bidict):
-   ...     __slots__ = ()
+   >>> class YodoBidict(bidict):  # Note, "Yodo" with a "d"
    ...     on_dup = ON_DUP_RAISE
 
    >>> b = YodoBidict({'one': 1})
    >>> b['one'] = 2  # Works with a regular bidict, but Yodo plays it safe.
    Traceback (most recent call last):
        ...
-   KeyDuplicationError: one
+   bidict.KeyDuplicationError: one
    >>> b
    YodoBidict({'one': 1})
    >>> b.forceput('one', 2)  # Any destructive change requires more force.
    >>> b
    YodoBidict({'one': 2})
+
+
+``WeakrefBidict`` Recipe
+########################
+
+Suppose you need a custom bidict type that only retains weakrefs
+to some objects whose refcounts you're trying not increment.
+
+With :class:`~bidict.BidictBase`\'s
+:attr:`~bidict.BidictBase._fwdm_cls` (forward mapping class) and
+:attr:`~bidict.BidictBase._invm_cls` (inverse mapping class) attributes,
+accomplishing this is as simple as:
+
+.. doctest::
+
+   >>> from bidict import MutableBidict
+   >>> from weakref import WeakKeyDictionary, WeakValueDictionary
+
+   >>> class WeakrefBidict(MutableBidict):
+   ...     _fwdm_cls = WeakKeyDictionary
+   ...     _invm_cls = WeakValueDictionary
+
+Now you can insert items into *WeakrefBidict* without incrementing any refcounts:
+
+.. doctest::
+
+   >>> id_by_obj = WeakrefBidict()
+
+   >>> class MyObj:
+   ...     def __init__(self, id):
+   ...         self.id = id
+   ...     def __repr__(self):
+   ...         return f'<MyObj id={self.id}>'
+
+   >>> o1, o2 = MyObj(1), MyObj(2)
+   >>> id_by_obj[o1] = o1.id
+   >>> id_by_obj[o2] = o2.id
+   >>> id_by_obj
+   WeakrefBidict({<MyObj id=1>: 1, <MyObj id=2>: 2})
+   >>> id_by_obj.inverse
+   WeakrefBidictInv({1: <MyObj id=1>, 2: <MyObj id=2>})
+
+If you drop your references to your objects,
+you can see that they get deallocated on CPython right away,
+since your *WeakrefBidict* isn't holding on to them:
+
+.. doctest::
+   :skipif: not_cpython
+
+   >>> del o1, o2
+   >>> id_by_obj
+   WeakrefBidict()
 
 
 ``SortedBidict`` Recipes
@@ -109,7 +159,6 @@ creating a sorted bidict is simple:
 
 .. doctest::
 
-   >>> from bidict import MutableBidict
    >>> from sortedcontainers import SortedDict
 
    >>> class SortedBidict(MutableBidict):
@@ -118,7 +167,6 @@ creating a sorted bidict is simple:
    ...     Note: As a result, an instance and its inverse yield their items
    ...     in different orders.
    ...     """
-   ...     __slots__ = ()
    ...     _fwdm_cls = SortedDict
    ...     _invm_cls = SortedDict
    ...     _repr_delegate = list  # only used for list-style repr
@@ -145,7 +193,6 @@ will yield their items in *the same* order:
    >>> from sortedcollections import ValueSortedDict
 
    >>> class KeySortedBidict(MutableBidict):
-   ...     __slots__ = ()
    ...     _fwdm_cls = SortedDict
    ...     _invm_cls = ValueSortedDict
    ...     _repr_delegate = list
@@ -165,8 +212,32 @@ will yield their items in *the same* order:
    [('hydrogen', 1), ('helium', 2), ('beryllium', 4), ('carbon', 6)]
 
 
+Automatic "Get Attribute" Pass-Through
+######################################
+
+Python makes it easy to customize a class's "get attribute" behavior.
+You can take advantage of this to pass attribute access
+through to the backing ``_fwdm`` mapping, for example,
+when an attribute is not provided by the bidict class itself:
+
+   >>> def __getattribute__(self, name):
+   ...     try:
+   ...         return object.__getattribute__(self, name)
+   ...     except AttributeError:
+   ...         return getattr(self._fwdm, name)
+
+   >>> KeySortedBidict.__getattribute__ = __getattribute__
+
+Now, even though this ``KeySortedBidict`` itself provides no ``peekitem`` attribute,
+the following call still succeeds
+because it's passed through to the backing ``SortedDict``:
+
+   >>> elem_by_atomicnum.peekitem()
+   (6, 'carbon')
+
+
 Dynamic Inverse Class Generation
-::::::::::::::::::::::::::::::::
+################################
 
 When a bidict class's
 :attr:`~bidict.BidictBase._fwdm_cls` and
@@ -180,7 +251,7 @@ that come with :mod:`bidict`.)
 However, when a bidict's
 :attr:`~bidict.BidictBase._fwdm_cls` and
 :attr:`~bidict.BidictBase._invm_cls` differ,
-as in the ``KeySortedBidict`` example above,
+as in the ``KeySortedBidict`` and ``WeakrefBidict`` recipes above,
 the inverse class of the bidict
 needs to have its
 :attr:`~bidict.BidictBase._fwdm_cls` and
@@ -216,29 +287,9 @@ are the opposite of ``KeySortedBidict``'s:
    >>> KeySortedBidict(atomicnum_by_elem.inverse) == elem_by_atomicnum
    True
 
-You can even play tricks with attribute lookup redirection here too.
-For example, to pass attribute access through to the backing ``_fwdm`` mapping
-when an attribute is not provided by the bidict class itself,
-you can override :meth:`~object.__getattribute__` as follows:
 
-   >>> def __getattribute__(self, name):
-   ...     try:
-   ...         return object.__getattribute__(self, name)
-   ...     except AttributeError as e:
-   ...         return getattr(self._fwdm, name)
+-----
 
-   >>> KeySortedBidict.__getattribute__ = __getattribute__
-
-Now, even though this ``KeySortedBidict`` itself provides no ``peekitem`` attribute,
-the following call still succeeds
-because it's passed through to the backing ``SortedDict``:
-
-   >>> elem_by_atomicnum.peekitem()
-   (6, 'carbon')
-
-
-This goes to show how simple it can be
+This all goes to show how simple it can be
 to compose your own bidirectional mapping types
 out of the building blocks that :mod:`bidict` provides.
-
-Next proceed to :doc:`other-functionality`.

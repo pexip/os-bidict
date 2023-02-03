@@ -1,0 +1,9 @@
+Tests: upstream-unittest
+Depends: python3-all,
+         python3-bidict,
+         python3-hypothesis,
+         python3-pytest,
+         python3-pytest-benchmark,
+         python3-pytest-xdist,
+         python3-sortedcollections,
+         python3-sortedcontainers,
