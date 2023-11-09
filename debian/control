@@ -23,7 +23,7 @@ Homepage: https://bidict.readthedocs.io
 Vcs-Browser: https://salsa.debian.org/python-team/packages/bidict
 Vcs-Git: https://salsa.debian.org/python-team/packages/bidict.git
 Testsuite: autopkgtest-pkg-python
-XS-Pexip-Upstream: http://ftp.debian.org/debian/ bullseye
+XS-Pexip-Upstream: http://deb.debian.org/debian/ bookworm
 
 Package: python3-bidict
 Architecture: all
