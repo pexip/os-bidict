@@ -1,5 +1,4 @@
-# -*- coding: utf-8 -*-
-# Copyright 2009-2020 Joshua Bronson. All Rights Reserved.
+# Copyright 2009-2022 Joshua Bronson. All rights reserved.
 #
 # This Source Code Form is subject to the terms of the Mozilla Public
 # License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -32,7 +31,8 @@ import bidict
 
 # -- General configuration ------------------------------------------------
 
-suppress_warnings = ['image.nonlocal_uri']
+# suppress_warnings = [
+# ]
 
 # If your documentation needs a minimal Sphinx version, state it here.
 #needs_sphinx = '1.0'
@@ -40,19 +40,21 @@ suppress_warnings = ['image.nonlocal_uri']
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or custom ones.
 extensions = [
-    'alabaster',
     'sphinx.ext.autodoc',
     'sphinx.ext.autosectionlabel',
-    'sphinx.ext.coverage',
+    # 'sphinx.ext.coverage',
     'sphinx.ext.doctest',
+    'sphinx.ext.extlinks',
     'sphinx.ext.intersphinx',
     'sphinx.ext.viewcode',
-    'sphinx.ext.todo',
-    'sphinx_autodoc_typehints',
+    # 'sphinx.ext.todo',
 ]
-
-# https://github.com/agronholm/sphinx-autodoc-typehints#options
-set_type_checking_flag = True
+try:
+    import sphinx_copybutton  # noqa: F401
+except ImportError:
+    pass
+else:
+    extensions.append('sphinx_copybutton')
 
 intersphinx_mapping = {'python': ('https://docs.python.org/3', None)}
 #todo_include_todos = True
@@ -71,8 +73,8 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'bidict'
-author = bidict.__author__
-copyright = bidict.__copyright__
+author = bidict.metadata.__author__['name']
+copyright = bidict.metadata.__copyright__.lstrip('© ')
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -112,7 +114,7 @@ exclude_patterns = ['_build']
 #show_authors = False
 
 # The name of the Pygments (syntax highlighting) style to use.
-pygments_style = 'sphinx'
+# pygments_style = 'colorful'
 
 # A list of ignored prefixes for module index sorting.
 modindex_common_prefix = ['bidict.']
@@ -125,37 +127,24 @@ modindex_common_prefix = ['bidict.']
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-html_theme = 'alabaster'
-#html_theme = 'sphinx_rtd_theme'
-#html_theme = 'nature'
+html_theme = 'furo'
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
 # documentation.
-html_theme_options = dict(
-    analytics_id='UA-10116163-3',
-    description=bidict.__description__,
-    link_hover='#247BA1',
-    github_banner=True,
-    github_repo='bidict',
-    github_type='star',
-    github_user='jab',
-    page_width='1000px',
-    show_powered_by=False,
-    show_relbar_bottom=True,
-    donate_url='https://gumroad.com/l/bidict',
-    tidelift_url='https://tidelift.com/subscription/pkg/pypi-bidict?utm_source=pypi-bidict&utm_medium=referral&utm_campaign=docs',
-)
+# https://pradyunsg.me/furo/customisation/#theme-options
+# html_theme_options = dict(
+# )
 
 # Add any paths that contain custom themes here, relative to this directory.
-#html_theme_path = [alabaster.get_path()]
+# html_theme_path = []
 
 # The name for this set of Sphinx documents.  If None, it defaults to
 # "<project> v<release> documentation".
-#html_title = None
+html_title = 'bidict'
 
 # A shorter title for the navigation bar.  Default is the same as html_title.
-#html_short_title = None
+# html_short_title = 'bidict'
 
 # The name of an image file (relative to this directory) to place at the top
 # of the sidebar.
@@ -176,6 +165,10 @@ html_static_path = ['_static']
 # directly to the root of the documentation.
 #html_extra_path = []
 
+# https://docs.readthedocs.io/en/stable/guides/adding-custom-css.html#adding-custom-css-or-javascript-to-sphinx-documentation
+# html_css_files = ['custom.css']
+html_js_files = ['custom.js']
+
 # If not '', a 'Last updated on:' timestamp is inserted at every page bottom,
 # using the given strftime format.
 html_last_updated_fmt = '%b %d, %Y'
@@ -185,14 +178,15 @@ html_last_updated_fmt = '%b %d, %Y'
 #html_use_smartypants = True
 
 # Custom sidebar templates, maps document names to template names.
+# https://pradyunsg.me/furo/customisation/sidebar/#using-html-sidebars
 html_sidebars = {
     '**': [
-        'about.html',
-        'navigation.html',
-        'relations.html',
-        'searchbox.html',
-        'donate.html',
-    ]
+        'sidebar/brand.html',
+        'sidebar/search.html',
+        'sidebar/scroll-start.html',
+        'sidebar/navigation.html',
+        'sidebar/scroll-end.html',
+    ],
 }
 
 # Additional templates that should be rendered to pages, maps page names to
@@ -229,103 +223,37 @@ html_show_copyright = True
 htmlhelp_basename = 'bidictdoc'
 
 
-# -- Options for LaTeX output ---------------------------------------------
+# https://www.sphinx-doc.org/en/master/usage/extensions/extlinks.html
+extlinks = {
+    'issue': ('https://github.com/jab/bidict/issues/%s', '#%s')
+}
 
-#latex_elements = {
-## The paper size ('letterpaper' or 'a4paper').
-##'papersize': 'letterpaper',
-#
-## The font size ('10pt', '11pt' or '12pt').
-##'pointsize': '10pt',
-#
-## Additional stuff for the LaTeX preamble.
-##'preamble': '',
-#}
-
-# Grouping the document tree into LaTeX files. List of tuples
-# (source start file, target name, title,
-#  author, documentclass [howto, manual, or own class]).
-#latex_documents = [
-#  ('index', 'bidict.tex', 'bidict Documentation',
-#   author, 'manual'),
-#]
-
-# The name of an image file (relative to this directory) to place at the top of
-# the title page.
-#latex_logo = None
-
-# For "manual" documents, if this is true, then toplevel headings are parts,
-# not chapters.
-#latex_use_parts = False
-
-# If true, show page references after internal links.
-#latex_show_pagerefs = False
-
-# If true, show URL addresses after external links.
-#latex_show_urls = False
-
-# Documents to append as an appendix to all manuals.
-#latex_appendices = []
-
-# If false, no module index is generated.
-#latex_domain_indices = True
-
-
-# -- Options for manual page output ---------------------------------------
-
-# One entry per manual page. List of tuples
-# (source start file, name, description, authors, manual section).
-#man_pages = [
-#    ('index', 'bidict', 'bidict Documentation',
-#     [author], 1)
-#]
-
-# If true, show URL addresses after external links.
-#man_show_urls = False
-
-
-# -- Options for Texinfo output -------------------------------------------
-
-# Grouping the document tree into Texinfo files. List of tuples
-# (source start file, target name, title, author,
-#  dir menu entry, description, category)
-#texinfo_documents = [
-#  ('index', 'bidict', 'bidict Documentation',
-#   author, 'bidict', 'One line description of project.',
-#   'Miscellaneous'),
-#]
-
-# Documents to append as an appendix to all manuals.
-#texinfo_appendices = []
-
-# If false, no module index is generated.
-#texinfo_domain_indices = True
-
-# How to display URL addresses: 'footnote', 'no', or 'inline'.
-#texinfo_show_urls = 'footnote'
-
-# If true, do not generate a @detailmenu in the "Top" node's menu.
-#texinfo_no_detailmenu = False
 
 # Ignore urls matching these regex strings when doing "make linkcheck"
 linkcheck_ignore = [
     r'https://codecov\.io/.*',  # gives 405 for HEAD requests
     r'https://pypistats\.org/.*',  # unreliable
+    r'https://gitpod\.io/#.*',  # linkcheck complains about anchor links on this site
     # alternative links for readers on GitHub (which don't work on readthedocs.io):
-    r'CODE_OF_CONDUCT\.rst',
-    r'docs/intro\.rst',
     r'docs/learning-from-bidict\.rst',
+    r'CHANGELOG\.rst',
+    r'docs/intro\.rst',
+    r'CONTRIBUTING\.rst',
+    r'CODE_OF_CONDUCT\.rst',
 ]
 linkcheck_timeout = 10  # 5s default too low
 
 # http://www.sphinx-doc.org/en/stable/ext/autosectionlabel.html#configuration
 autosectionlabel_prefix_document = True
 
+# https://www.sphinx-doc.org/en/3.x/usage/extensions/autodoc.html#confval-autodoc_typehints
+autodoc_typehints = 'description'
+
 # http://www.sphinx-doc.org/en/master/usage/extensions/doctest.html
 doctest_global_setup = """
+import sys
+not_cpython = sys.implementation.name != 'cpython'
 """
 
-
-def setup(app):
-    """https://docs.readthedocs.io/en/latest/guides/adding-custom-css.html#adding-custom-css-or-javascript-to-a-sphinx-project"""
-    app.add_js_file('custom.js')
+# https://sphinx-copybutton.readthedocs.io/en/latest/#strip-and-configure-input-prompts-for-code-cells
+copybutton_prompt_text = '>>> '

@@ -1,36 +1,20 @@
 'use strict';
 
-document.addEventListener('DOMContentLoaded', function () {
-  var sidebar = document.getElementsByClassName('sphinxsidebarwrapper')[0];
-
-  (function tweakSidebar() { try {
-    var donateH3 = sidebar.querySelector('.donation');
-    donateH3.textContent = 'Giving back';
-    var tideliftP = donateH3.nextElementSibling.nextElementSibling;
-    var givebackA = document.createElement('a');
-    givebackA.href = 'https://gumroad.com/l/bidict';
-    givebackA.textContent = 'Bidict is the product of hundreds of hours of unpaid, voluntary work. If bidict has helped you accomplish your work, click here to chip in toward the costs of bidict’s maintenance and development.'
-    sidebar.insertBefore(givebackA, tideliftP);
-    var tideliftH3 = document.createElement('h3');
-    tideliftH3.textContent = 'Get Support';
-    sidebar.insertBefore(tideliftH3, tideliftP);
-   } catch (e) {}
-  })();
-
-  function addDiv(propName, propVal) {
-    var div = document.createElement('div');
-    div.style.marginTop = '20px';
-    div[propName] = propVal;
-    sidebar.append(div);
-  }
-
+document.addEventListener('DOMContentLoaded', function() {
   function addScript(src) {
-    var script = document.createElement('script');
-    script.src = src;
-    script.async = true;
-    document.body.append(script);
+    var el = document.createElement('script');
+    el.setAttribute('async', '');
+    el.setAttribute('src', src);
+    document.head.appendChild(el);
   }
+  // Google Analytics
+  addScript('https://www.googletagmanager.com/gtag/js?id=UA-10116163-3');
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+  gtag('js', new Date());
+  gtag('config', 'UA-10116163-3');
 
-  addDiv('className', 'rc-scout');
-  addScript('https://www.recurse-scout.com/loader.js?t=c17a917136a40c38f5ce6b80adbbfd19');
+  var sidebarUl = document.querySelector('.sidebar-tree > ul');
+  sidebarUl.insertAdjacentHTML('beforeend', '<li class="toctree l1"><a class="reference external" href="https://github.com/jab/bidict">GitHub Repository</a></li>');
+  sidebarUl.insertAdjacentHTML('afterend', '<div><img src="https://static.scarf.sh/a.png?x-pxid=15b5b7c1-9453-4ab6-8a82-8cfa0f4db4f9" /></div>')
 });
