@@ -3,31 +3,34 @@ Section: python
 Priority: optional
 Maintainer: Pexip AS <packaging@pexip.com>
 XSBC-Pexip-Original-Maintainer: Debian Python Team <team+python@tracker.debian.org>
-XSBC-Pexip-Original-Uploaders: William Grzybowski <william@grzy.org>
+XSBC-Pexip-Original-Uploaders: William Grzybowski <william@grzy.org>,
 Build-Depends: debhelper-compat (= 13),
                dh-python,
+               furo,
+               pybuild-plugin-pyproject,
                python3-all,
+               python3-hypothesis <!nocheck>,
+               python3-pytest <!nocheck>,
+               python3-pytest-benchmark <!nocheck>,
+               python3-pytest-xdist <!nocheck>,
                python3-setuptools,
-               python3-setuptools-scm,
+               python3-sortedcollections <!nocheck>,
+               python3-sortedcontainers <!nocheck>,
                python3-sphinx,
-               python3-sphinx-autodoc-typehints,
-# tests
-               python3-hypothesis,
-               python3-pytest,
-               python3-pytest-benchmark,
-               python3-sortedcollections,
-               python3-sortedcontainers
-Standards-Version: 4.5.1
+               python3-sphinx-copybutton,
+Standards-Version: 4.6.2
 Rules-Requires-Root: no
 Homepage: https://bidict.readthedocs.io
 Vcs-Browser: https://salsa.debian.org/python-team/packages/bidict
 Vcs-Git: https://salsa.debian.org/python-team/packages/bidict.git
-Testsuite: autopkgtest-pkg-python
 XS-Pexip-Upstream: http://deb.debian.org/debian/ bookworm
+
 
 Package: python3-bidict
 Architecture: all
-Depends: ${misc:Depends}, ${python3:Depends}
+Depends: ${misc:Depends},
+         ${python3:Depends},
+Suggests: python-bidict-doc,
 Description: Bidirectional map data structures and related functionality
  Features:
   - has carefully designed APIs for safety, simplicity, flexibility,
@@ -37,3 +40,21 @@ Description: Bidirectional map data structures and related functionality
   - integrates natively with Python’s collections interfaces
   - is implemented in concise, well-factored, well-documented pure Python that
     leverages a number of advanced language features
+
+Package: python-bidict-doc
+Architecture: all
+Multi-Arch: foreign
+Section: doc
+Depends: ${misc:Depends},
+         ${sphinxdoc:Depends},
+Description: Bidirectional map data structures and related functionality - documentation
+ Features:
+  - has carefully designed APIs for safety, simplicity, flexibility,
+    and ergonomics
+  - has extensive test coverage (including property-based tests and benchmarks)
+    run continuously on all supported Python versions and OSes
+  - integrates natively with Python’s collections interfaces
+  - is implemented in concise, well-factored, well-documented pure Python that
+    leverages a number of advanced language features
+ .
+ This package contains the HTML documentation.

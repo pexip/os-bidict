@@ -1,3 +1,50 @@
+bidict (0.22.1-1) unstable; urgency=medium
+
+  * Team upload.
+  * New upstream release.
+  * Refresh patches.
+  * Drop patch 0003-Do-not-install-custom.js-for-codefund.app-because-of.patch,
+    superseded upstream.
+  * Switch watch file to github tags.
+  * Patch: Help setuptools find the package.
+  * Build-Depend on python3-pytest-xdist.
+
+ -- Stefano Rivera <stefanor@debian.org>  Fri, 03 Feb 2023 19:50:55 -0400
+
+bidict (0.22.0-1) experimental; urgency=medium
+
+  * Team upload.
+  * New upstream release.
+  * Patches:
+    - Rebase patches.
+    - Drop 0001-Disable-alabaster-theme-and-some-options-to-avoid-pr.patch
+  * Mark BD's related to tests with <!nocheck>.
+  * Add python3-sphinx-copybutton and furo as BD for documentation, and
+    pybuild-plugin-pyproject.
+  * Update Standards-Version to 4.6.2, no changes needed.
+  * Split out documentation to a separate package.
+  * d/copyright:
+    - Update file location for upstream logo.
+    - Update copyright year.
+  * Run wrap-and-sort -at
+  * Add upstream testsuite as autopkgtest.
+  * Disable benchmarks when running testsuite.
+
+ -- Håvard F. Aasen <havard.f.aasen@pfft.no>  Sun, 08 Jan 2023 17:02:32 +0100
+
+bidict (0.21.3-1) unstable; urgency=medium
+
+  * Team upload.
+  * New upstream version 0.21.3
+  * Rebase patches.
+  * d/control:
+    - Drop obsolete build-dependency.
+    - Update Standards-Version to 4.6.0
+  * d/copyright: Update copyright year.
+  * d/clean: Update file.
+
+ -- Håvard Flaget Aasen <haavard_aasen@yahoo.no>  Tue, 21 Sep 2021 03:48:30 +0200
+
 bidict (0.21.2-2pexip4) pexip; urgency=medium
 
   * No-change rebuild

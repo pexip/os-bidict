@@ -1,19 +1,17 @@
-# Copyright 2009-2020 Joshua Bronson. All Rights Reserved.
+# Copyright 2009-2022 Joshua Bronson. All rights reserved.
 #
 # This Source Code Form is subject to the terms of the Mozilla Public
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-Test script for bidict.bidict::
+Test script for bidict.bidict:
 
     >>> from bidict import bidict
-    >>> keys = (1, 2, 3)
-    >>> vals = ('one', 'two', 'three')
-    >>> bi = bidict(zip(keys, vals))
-    >>> bi == bidict({1: 'one', 2: 'two', 3: 'three'})
-    True
+    >>> bi = bidict({1: 'one', 2: 'two', 3: 'three'})
+    >>> bi
+    bidict({1: 'one', 2: 'two', 3: 'three'})
 
-Works like dict for getting and changing forward mappings::
+Works like dict for getting and changing forward mappings:
 
     >>> bi[2]
     'two'
@@ -22,24 +20,27 @@ Works like dict for getting and changing forward mappings::
     'twain'
     >>> bi[4]
     Traceback (most recent call last):
-        ...
+      ...
     KeyError: 4
     >>> del bi[2]
     >>> bi.pop(3)
     'three'
+    >>> bi.update({4: 'four'})
+    >>> bi.popitem()
+    (4, 'four')
     >>> bi
     bidict({1: 'one'})
 
 ``put`` can also be used to insert a mapping as long as its key and value
-don't already exist::
+don't already exist:
 
     >>> bi.put(0, 'zero')
     >>> bi[0]
     'zero'
     >>> bi.put(1, 'aught')
     Traceback (most recent call last):
-        ...
-    KeyDuplicationError: 1
+      ...
+    bidict.KeyDuplicationError: 1
     >>> del bi[1]
     >>> bi.put(1, 'aught')
     >>> bi[1]
@@ -48,51 +49,51 @@ don't already exist::
     >>> bi
     bidict({1: 'aught'})
 
-bidicts maintain references to their inverses via the ``inv`` property,
-which can also be used to access or modify them::
+bidicts maintain references to their inverses via the ``inverse`` property,
+which can also be used to access or modify them:
 
-    >>> bi.inv
+    >>> bi.inverse
     bidict({'aught': 1})
-    >>> bi.inv['aught']
+    >>> bi.inverse['aught']
     1
-    >>> bi.inv['aught'] = 'one'
+    >>> bi.inverse['aught'] = 'one'
     >>> bi
     bidict({'one': 'aught'})
-    >>> bi.inv.pop('aught')
+    >>> bi.inverse.pop('aught')
     'one'
-    >>> bi == bi.inv == bidict()
+    >>> bi == bi.inverse == bidict()
     True
-    >>> bi.inv.update(one=1)
+    >>> bi.inverse.update(one=1)
     >>> bi
     bidict({1: 'one'})
-    >>> bi is bi.inv.inv
+    >>> bi is bi.inverse.inverse
     True
-    >>> bi.inv is bi.inv.inv.inv
+    >>> bi.inverse is bi.inverse.inverse.inverse
     True
 
-bidicts work with ``inverted`` as expected::
+bidicts work with ``inverted`` as expected:
 
     >>> from bidict import inverted
     >>> biinv = bidict(inverted(bi))
     >>> biinv
     bidict({'one': 1})
 
-This created a new object (equivalent but not identical)::
+This created a new object (equivalent but not identical):
 
-    >>> biinv == bi.inv
+    >>> biinv == bi.inverse
     True
-    >>> biinv is bi.inv
+    >>> biinv is bi.inverse
     False
 
-Inverting the inverse should round-trip::
+Inverting the inverse should round-trip:
 
     >>> bi == bidict(inverted(inverted(bi)))
     True
-    >>> bi = bi.inv
+    >>> bi = bi.inverse
     >>> bi == bidict(inverted(inverted(bi)))
     True
 
-The rest of the ``MutableMapping`` interface is supported::
+The rest of the ``MutableMapping`` interface is supported:
 
     >>> bi.get('one')
     1
@@ -113,19 +114,25 @@ The rest of the ``MutableMapping`` interface is supported::
     1
     >>> bi
     bidict({'two': 2})
-    >>> bi.inv
+    >>> bi.inverse
     bidict({2: 'two'})
+    >>> bi.pop('no-such-key')
+    Traceback (most recent call last):
+      ...
+    KeyError: 'no-such-key'
+    >>> bi.pop('no-such-key', 'default')
+    'default'
     >>> bi.pop('wrong', 'number', 'of', 'args')
     Traceback (most recent call last):
-        ...
-    TypeError: pop expected at most 2 arguments (got 4)
+      ...
+    TypeError: ...pop() takes from 2 to 3 positional arguments but 5 were given
     >>> bi.popitem()
     ('two', 2)
     >>> bi.popitem()
     Traceback (most recent call last):
-        ...
-    KeyError: 'popitem(): bidict is empty'
-    >>> bi.inv.setdefault(3, 'three')
+      ...
+    KeyError: 'popitem(): dictionary is empty'
+    >>> bi.inverse.setdefault(3, 'three')
     'three'
     >>> bi
     bidict({'three': 3})
@@ -147,38 +154,42 @@ The rest of the ``MutableMapping`` interface is supported::
     >>> bi
     bidict()
 
-Empty update is a no-op::
+Empty updates are a no-op:
 
     >>> bi.update()
     >>> bi
     bidict()
-
-Not part of the public API, but test this anyway for the coverage::
-
-    >>> bi._update(False, None)
+    >>> bi.forceupdate()
     >>> bi
     bidict()
 
-Initializing with different keys mapping to the same value fails::
+Initializing with wrong number of positional args is a TypeError:
+
+    >>> bidict('wrong', 'number', 'of', 'args')
+    Traceback (most recent call last):
+      ...
+    TypeError: Expected at most 1 positional argument, got 4
+
+Initializing with different keys mapping to the same value fails:
 
     >>> bidict([(1, 1), (2, 1)])
     Traceback (most recent call last):
-        ...
-    ValueDuplicationError: 1
+      ...
+    bidict.ValueDuplicationError: 1
 
-Adding a new key associated with an existing value fails::
+Adding a new key associated with an existing value fails:
 
     >>> b = bidict({1: 1})
     >>> b[2] = 1
     Traceback (most recent call last):
-        ...
-    ValueDuplicationError: 1
+      ...
+    bidict.ValueDuplicationError: 1
     >>> b.update({2: 1})
     Traceback (most recent call last):
-        ...
-    ValueDuplicationError: 1
+      ...
+    bidict.ValueDuplicationError: 1
 
-``forceput`` and ``forceupdate`` can be used instead::
+``forceput`` and ``forceupdate`` can be used instead:
 
     >>> b.forceput(2, 1)
     >>> b
@@ -187,25 +198,25 @@ Adding a new key associated with an existing value fails::
     >>> b
     bidict({1: 1})
 
-Trying to insert an existing mapping does not raise, and is a no-op::
+Trying to insert an existing mapping does not raise, and is a no-op:
 
     >>> b = bidict({1: 'one'})
     >>> b[1] = 'one'
     >>> b[1]
     'one'
-    >>> b.inv['one'] = 1
-    >>> b.inv['one']
+    >>> b.inverse['one'] = 1
+    >>> b.inverse['one']
     1
 
 The following case does not half-succeed,
-i.e. the bidict is not in an inconsistent state after::
+i.e. the bidict is not in an inconsistent state after:
 
     >>> b = bidict(one=1, two=2)
     >>> b['one'] = 2
     Traceback (most recent call last):
-        ...
-    KeyAndValueDuplicationError: ('one', 2)
-    >>> len(b) == len(b.inv)
+      ...
+    bidict.KeyAndValueDuplicationError: ('one', 2)
+    >>> len(b) == len(b.inverse)
     True
 
 ``put`` and ``putall`` allow you to have
@@ -213,7 +224,7 @@ per-call control over duplication behavior
 (see doctests in ``../docs/unique-values.rst.inc``).
 
 Even with RAISE duplication behavior,
-inserting existing items is a no-op (i.e. it doesn't raise)::
+inserting existing items is a no-op (i.e. it doesn't raise):
 
     >>> from bidict import RAISE, OnDup
     >>> b.putall(
@@ -225,7 +236,7 @@ inserting existing items is a no-op (i.e. it doesn't raise)::
     >>> b == b0
     True
 
-Make sure copy.copy and copy.deepcopy create shallow and deep copies, respectively::
+Make sure copy.copy and copy.deepcopy create shallow and deep copies, respectively:
 
     >>> from copy import copy, deepcopy
     >>> from bidict import frozenbidict
@@ -238,3 +249,65 @@ Make sure copy.copy and copy.deepcopy create shallow and deep copies, respective
     True
     >>> b[1] is d[1]
     False
+
+Bidicts support PEP 584-style dict merge operators:
+
+    >>> b = bidict({'one': 1})
+    >>> b | {}
+    bidict({'one': 1})
+    >>> b | {'one': 1}
+    bidict({'one': 1})
+    >>> b | {'two': 2}
+    bidict({'one': 1, 'two': 2})
+    >>> b | {'two': 2} | {'three': 3}
+    bidict({'one': 1, 'two': 2, 'three': 3})
+
+    >>> b | {'one': 111}  # duplicate key -> succeeds, last one wins (as with dict.__or__)
+    bidict({'one': 111})
+    >>> {'one': 111} | b  # ditto
+    bidict({'one': 1})
+
+    >>> b | {'uno': 1}  # duplicate value -> ValueDuplicationError
+    Traceback (most recent call last):
+      ...
+    bidict.ValueDuplicationError: 1
+
+    >>> {'uno': 1} | b  # ditto
+    Traceback (most recent call last):
+      ...
+    bidict.ValueDuplicationError: 1
+
+    >>> b = bidict({'one': 1, 'two': 2})
+    >>> b | {'one': 2}
+    Traceback (most recent call last):
+      ...
+    bidict.KeyAndValueDuplicationError: ('one', 2)
+
+    >>> b |= {'three': 3}  # in-place merge
+    >>> b
+    bidict({'one': 1, 'two': 2, 'three': 3})
+
+    >>> b |= {'one': 111}  # in-place merge, duplicate key -> succeeds, last one wins
+    >>> b
+    bidict({'one': 111, 'two': 2, 'three': 3})
+
+    >>> b |= {'dos': 2}  # duplicate value -> ValueDuplicationError
+    Traceback (most recent call last):
+      ...
+    bidict.ValueDuplicationError: 2
+
+    >>> b
+    bidict({'one': 111, 'two': 2, 'three': 3})
+    >>> b |= {'one': 3}
+    Traceback (most recent call last):
+      ...
+    bidict.KeyAndValueDuplicationError: ('one', 3)
+
+    >>> b | 1
+    Traceback (most recent call last):
+      ...
+    TypeError: unsupported operand type(s) for |: 'bidict' and 'int'
+    >>> 1 | b
+    Traceback (most recent call last):
+      ...
+    TypeError: unsupported operand type(s) for |: 'int' and 'bidict'
