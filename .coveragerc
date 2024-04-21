@@ -1,12 +1,12 @@
 [run]
 branch = True
+parallel = True
 source = bidict
 dynamic_context = test_function
 
 [report]
 precision = 1
-exclude_lines =
-  pragma: no cover
-  def __repr__
+exclude_also =
   @.*overload
   if .*TYPE_CHECKING
+  def .*: \.\.\.$

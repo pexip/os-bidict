@@ -4,7 +4,7 @@ Priority: optional
 Maintainer: Debian Python Team <team+python@tracker.debian.org>
 Uploaders: William Grzybowski <william@grzy.org>,
 Build-Depends: debhelper-compat (= 13),
-               dh-python,
+               dh-sequence-python3,
                furo,
                pybuild-plugin-pyproject,
                python3-all,
@@ -17,7 +17,8 @@ Build-Depends: debhelper-compat (= 13),
                python3-sortedcontainers <!nocheck>,
                python3-sphinx,
                python3-sphinx-copybutton,
-Standards-Version: 4.6.2
+               python3-typing-extensions <!nocheck>,
+Standards-Version: 4.7.0
 Rules-Requires-Root: no
 Homepage: https://bidict.readthedocs.io
 Vcs-Browser: https://salsa.debian.org/python-team/packages/bidict
