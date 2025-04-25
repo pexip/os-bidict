@@ -3,8 +3,9 @@
     "files.insertFinalNewline": true,
     "files.trimFinalNewlines": true,
     "files.trimTrailingWhitespace": true,
-    // Prefer mypy over Pyright:
-    "python.analysis.typeCheckingMode": "off",
-    "python.linting.mypyEnabled": true,
+    "python.defaultInterpreterPath": ".venv/dev/bin/python",
     "python.testing.pytestEnabled": true,
+    "mypy-type-checker.importStrategy": "fromEnvironment",
+    "mypy-type-checker.reportingScope": "workspace",
+    "mypy-type-checker.preferDaemon": true,
 }

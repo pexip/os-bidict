@@ -1,3 +1,35 @@
+bidict (0.23.1-2) unstable; urgency=medium
+
+  * Team upload.
+  * d/tests/control: Add python3-typing-extensions as Dependency.
+
+ -- Emmanuel Arias <eamanu@debian.org>  Sun, 21 Apr 2024 20:42:31 -0300
+
+bidict (0.23.1-1) unstable; urgency=medium
+
+  * Team upload.
+  * New upstream version
+  * Standards-Version: 4.7.0 (routine-update)
+  * Build-Depends: s/dh-python/dh-sequence-python3/ (routine-update)
+  * d/patches: Update 0002-Handle-privacy-breach-in-docs.patch and
+    0004-drop-intersphinx.patch patches according to the new upstream code.
+    - Remove 0003-Declare-packages-in-setup.cfg.patch and 0005-python3.12.patch
+      patches, they are not longer needed.
+  * d/control: Add python3-typing-extensions as B-Depends.
+
+ -- Emmanuel Arias <eamanu@debian.org>  Sun, 21 Apr 2024 14:24:12 -0300
+
+bidict (0.22.1-2) unstable; urgency=medium
+
+  * Team upload.
+  * Add patch to support Python 3.12 Closes: #1056230
+  * Make build reproducible.
+    Thanks to Chris Lamb for patch Closes: #1055920
+  * Update patch to handle privacy breach.
+    - Rename patch to '0002-Handle-privacy-breach-in-docs.patch'.
+    - Remove 'docs/_static/custom.js'.
+ -- Håvard F. Aasen <havard.f.aasen@pfft.no>  Mon, 27 Nov 2023 11:37:22 +0100
+
 bidict (0.22.1-1+pexip24u3) pexip-bookworm; urgency=medium
 
   * New versioning scheme

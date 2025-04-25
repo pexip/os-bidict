@@ -12,7 +12,7 @@ People
 - Terry Reedy for suggesting the slice syntax
   (it was fun while it lasted).
 
-- Raymond Hettinger for suggesting :func:`~bidict.namedbidict`,
+- Raymond Hettinger for
   providing feedback on the design and implementation,
   and (most of all) for the amazing work on Python's built-in collections
   that made bidict possible.
@@ -23,7 +23,21 @@ People
   Tom Viner for being bidict's Adopt Pytest helper for the month,
   and Brianna Laugher for coordinating.
 
-- Daniel Pope, Leif Walsh, David Turner, and Michael Arntzenius
+- Zac Hatfield-Dodds for the amazing work
+  (as well as soliciting feedback) on
+  `Hypothesis <https://hypothesis.works>`__,
+  `Hypofuzz <https://hypofuzz.com>`__,
+  and `Pytest <https://pytest.org>`__.`
+
+- Harrison Goldstein for building
+  `Tyche <https://marketplace.visualstudio.com/items?itemName=HarrisonGoldstein.tyche>`__
+  and showing me how to use it.
+
+- Daniel Pope,
+  Leif Walsh,
+  David Turner,
+  Itamar Turner-Trauring,
+  and Michael Arntzenius
   for suggestions, code reviews, and design discussion.
 
 - Leif Walsh for contributing the initial
@@ -36,7 +50,11 @@ People
 
 - Bernát Gábor for pyproject.toml support.
 
-- Richard Sanger, Zeyi Wang, and Amol Sahsrabudhe for reporting bugs.
+- Richard Sanger,
+  Zeyi Wang,
+  Brian Maissy,
+  and Amol Sahsrabudhe
+  for reporting bugs.
 
 
 Projects
@@ -47,6 +65,7 @@ Projects
 - `Tidelift <https://tidelift.com>`__
 - `Pytest <https://docs.pytest.org>`__
 - `Hypothesis <https://hypothesis.readthedocs.io>`__
+- `Tyche <https://marketplace.visualstudio.com/items?itemName=HarrisonGoldstein.tyche>`__
 - `Pytest-Benchmark <https://pytest-benchmark.readthedocs.io>`__
 - `Coverage <https://coverage.readthedocs.io>`__
 - `Codecov <https://codecov.io>`__
@@ -54,5 +73,4 @@ Projects
 - `Readthedocs <https://readthedocs.org>`__
 - `mypy <https://mypy.readthedocs.io>`__
 - `ruff <https://github.com/charliermarsh/ruff>`__
-- `Flake8 <https://flake8.pycqa.org>`__
 - `pre-commit <https://pre-commit.com>`__
