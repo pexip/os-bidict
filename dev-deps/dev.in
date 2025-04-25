@@ -1,6 +1,4 @@
--r lint.txt
--r docs.txt
--r test.txt
 pip-tools
+pytest-clarity
 pytest-icdiff
 tox

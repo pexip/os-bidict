@@ -21,8 +21,8 @@ Status
    :target: https://bidict.readthedocs.io/en/main/
    :alt: Documentation
 
-.. image:: https://github.com/jab/bidict/workflows/Tests/badge.svg
-   :target: https://github.com/jab/bidict/actions
+.. image:: https://github.com/jab/bidict/actions/workflows/test.yml/badge.svg
+   :target: https://github.com/jab/bidict/actions/workflows/test.yml?query=branch%3Amain
    :alt: GitHub Actions CI status
 
 .. image:: https://img.shields.io/pypi/l/bidict.svg
@@ -33,19 +33,15 @@ Status
    :target: https://pepy.tech/project/bidict
    :alt: PyPI Downloads
 
-.. image:: https://img.shields.io/github/sponsors/jab
-   :target: https://github.com/sponsors/jab
-   :alt: Sponsors on GitHub
-
 .. image:: https://img.shields.io/badge/GitHub-sponsor-ff69b4
    :target: https://github.com/sponsors/jab
-   :alt: Sponsor on GitHub
+   :alt: Sponsor
 
 
 Features
 --------
 
-- Depended on by
+- Mature: Depended on by
   Google, Venmo, CERN, Baidu, Tencent,
   and teams across the world since 2009
 
@@ -60,12 +56,13 @@ Features
   concise, well-factored, fully type-hinted Python code
   that is optimized for running efficiently
   as well as for long-term maintenance and stability
-  (not to mention `joy <#learning-from-bidict>`__ :)
+  (as well as `joy <#learning-from-bidict>`__)
 
 - Extensively `documented <https://bidict.readthedocs.io>`__
 
 - 100% test coverage
   running continuously across all supported Python versions
+  (including property-based tests and benchmarks)
 
 
 Installation
@@ -103,7 +100,7 @@ I have a US-based LLC set up for invoicing,
 and I have 15+ years of professional experience
 delivering software and support to companies successfully.
 
-You can also sponsor my work through platforms like GitHub Sponsors.
+You can also sponsor my work through several platforms, including GitHub Sponsors.
 See the `Sponsoring <#sponsoring>`__ section below for details,
 including rationale and examples of companies
 supporting the open source projects they depend on.
@@ -119,8 +116,7 @@ in case your question has already been addressed.
 
 Otherwise, please feel free to
 `start a new discussion <https://github.com/jab/bidict/discussions>`__
-or `create a new issue <https://github.com/jab/bidict/issues/new>`__ on GitHub,
-or ask in the `bidict chatroom <https://gitter.im/jab/bidict>`__
+or `create a new issue <https://github.com/jab/bidict/issues/new>`__ on GitHub
 for voluntary community support.
 
 
@@ -133,7 +129,6 @@ please let me know in any of the following ways:
 
 - `star bidict on GitHub <https://github.com/jab/bidict>`__
 - post in `GitHub Discussions <https://github.com/jab/bidict/discussions>`__
-- leave a message in the `chat room <https://gitter.im/jab/bidict>`__
 - `email me <mailto:jabronson@gmail.com>`__
 
 
@@ -147,7 +142,7 @@ Release Notifications
 ---------------------
 
 .. duplicated in CHANGELOG.rst:
-   (would use `.. include::` but GitHub doesn't understand it)
+   (Would use `.. include::` but GitHub's renderer doesn't support it.)
 
 Watch `bidict releases on GitHub <https://github.com/jab/bidict/releases>`__
 to be notified when new versions of bidict are published.
@@ -182,47 +177,44 @@ Sponsoring
 ----------
 
 .. duplicated in CONTRIBUTING.rst
-   (would use `.. include::` but GitHub doesn't understand it)
+   (Would use `.. include::` but GitHub's renderer doesn't support it.)
 
 .. image:: https://img.shields.io/badge/GitHub-sponsor-ff69b4
   :target: https://github.com/sponsors/jab
   :alt: Sponsor through GitHub
 
-.. image:: https://img.shields.io/github/sponsors/jab
-   :target: https://github.com/sponsors/jab
-   :alt: Sponsors on GitHub
-
 Bidict is the product of thousands of hours of my unpaid work
-over the ~15 years that I've been the sole maintainer.
+over the 15+ years that I've been the sole maintainer.
 
 If bidict has helped you or your company accomplish your work,
-please `sponsor my work through GitHub <https://github.com/sponsors/jab>`__
-and/or ask your company to do the same.
+please sponsor my work through one of the following,
+and/or ask your company to do the same:
 
-Choose a tier and GitHub handles everything else.
-Your GitHub sponsorship will automatically go
-on the same bill you already have set up with GitHub,
-so after the one-click signup, there's nothing else to do.
+- `GitHub <https://github.com/sponsors/jab>`__
+- `PayPal <https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=jabronson%40gmail%2ecom&lc=US&item_name=Sponsor%20bidict>`__
+- `Tidelift <https://tidelift.com>`__
+- `thanks.dev <https://thanks.dev>`__
+- `Gumroad <https://gumroad.com/l/bidict>`__
+- `a support engagement with my LLC <#enterprise-support>`__
+
+If you're not sure which to use, GitHub is an easy option,
+especially if you already have a GitHub account.
+Just choose a monthly or one-time amount, and GitHub handles everything else.
+Your bidict sponsorship on GitHub will automatically go
+on the same regular bill as any other GitHub charges you pay for.
+PayPal is another easy option for one-time contributions.
 
 See the following for rationale and examples of companies
 supporting the open source projects they depend on
 in this manner:
 
-- `<https://engineering.indeedblog.com/blog/2019/07/foss-fund-six-months-in/>`__
 - `<https://engineering.atspotify.com/2022/04/announcing-the-spotify-foss-fund/>`__
 - `<https://blog.sentry.io/2021/10/21/we-just-gave-154-999-dollars-and-89-cents-to-open-source-maintainers>`__
+- `<https://engineering.indeedblog.com/blog/2019/07/foss-fund-six-months-in/>`__
 
-.. - `<https://www.onepercent.dev>`__
 .. - `<https://sethmlarson.dev/blog/people-in-your-software-supply-chain>`__
 .. - `<https://www.cognitect.com/blog/supporting-open-source-developers>`__
 .. - `<https://vorpus.org/blog/the-unreasonable-effectiveness-of-investment-in-open-source-infrastructure/>`__
-
-You can also support my work through
-`Gumroad <https://gumroad.com/l/bidict>`__ or
-`PayPal <https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=jabronson%40gmail%2ecom&lc=US&item_name=Sponsor%20bidict>`__,
-or through a support engagement with my LLC.
-See `Enterprise Support <#enterprise-support>`__
-above for details.
 
 
 Finding Documentation
@@ -246,6 +238,3 @@ try these alternate links instead:
 .. [#fn-learning] `<https://bidict.readthedocs.io/learning-from-bidict.html>`__ | `<docs/learning-from-bidict.rst>`__
 
 .. [#fn-contributing] `<https://bidict.readthedocs.io/contributors-guide.html>`__ | `<CONTRIBUTING.rst>`__
-
-
-.. image:: https://static.scarf.sh/a.png?x-pxid=05e3c4e4-eaa7-41a1-84c2-ec14413115f8

@@ -4,18 +4,18 @@ Addendum
 Performance
 -----------
 
-:mod:`bidict` is written to be as performant as possible
+Bidict is written to be as performant as possible
 without sacrificing other important goals,
 such as safety, portability, and maintainability.
 
-In general, using a :mod:`bidict` to maintain a bidirectional mapping
+In general, using a bidict to maintain a bidirectional mapping
 should exhibit about the same performance as
 keeping two mutually-inverse one-directional mappings
 in sync manually.
 The test suite includes benchmarks so that bidict's performance
 can be continuously measured and improved.
 
-If you spot an opportunity to improve :mod:`bidict`'s performance further,
+If you spot an opportunity to improve bidict's performance further,
 please don't hesitate to
 :doc:`file an issue or submit a pull request <contributors-guide>`.
 
@@ -24,10 +24,6 @@ please don't hesitate to
 ----------------------------------
 
 A careful reader might notice the following...
-
-.. testsetup::
-
-   from bidict import bidict
 
 .. doctest::
 
@@ -54,7 +50,7 @@ and that its memory will therefore be reclaimed immediately.
 
 .. note::
 
-   In PyPy this is not an issue, as PyPy doesn't use reference counts.
+   In PyPy this does not occur, as PyPy doesn't use reference counts.
    The memory for unreferenced objects in PyPy is only reclaimed
    when GC kicks in, which is unpredictable.
 
@@ -84,7 +80,7 @@ Terminology
 
   Concretely, this allows :class:`~bidict.bidict`\s
   to return a set-like (*dict_keys*) object
-  for :meth:`~bidict.bidict.values`,
+  for :meth:`~bidict.BidictBase.values`,
   rather than a non-set-like *dict_values* object.
 
 
@@ -156,9 +152,9 @@ And similarly,
 
 .. doctest::
 
-   >>> dict([(1, int), (1.0, float), (1+0j, complex), (True, bool)])
-   {1: <... 'bool'>}
-   >>> 1.0 in {True}
+   >>> {1: int, 1.0: float, 1+0j: complex, True: bool}
+   {1: <class 'bool'>}
+   >>> 1+0j in {True}
    True
 
 (Note that ``1 == 1.0 == 1+0j == True``.)
@@ -245,7 +241,7 @@ to swap two values in this way:
    >>> m['a'], m['b'] = m['b'], m['a']
    Traceback (most recent call last):
        ...
-   KeyAndValueDuplicationError: ('a', 'b')
+   bidict.KeyAndValueDuplicationError: ('a', 'b')
 
 This is because "simultaneous" assignments like the above
 are `by definition <https://docs.python.org/3/reference/simple_stmts.html#assignment-statements>`__
@@ -253,10 +249,10 @@ just syntax sugar for:
 
 .. code-block:: python
 
-   >>> # desugaring: m['a'], m['b'] = m['b'], m['a']
-   >>> tmp = (m['b'], m['a'])
-   >>> m['a'] = tmp[0]
-   >>> m['b'] = tmp[1]
+   # desugaring: m['a'], m['b'] = m['b'], m['a']
+   tmp = (m['b'], m['a'])
+   m['a'] = tmp[0]
+   m['b'] = tmp[1]
 
 and so the intermediate ``m['a'] = tmp[0]`` assignment
 raises :class:`~bidict.KeyAndValueDuplicationError`
